@@ -1,0 +1,49 @@
+Regras para encontrar Dependências Funcionais
+Separação
+A -> BC então A -> B e A -> C
+
+Exemplo:
+
+CPF -> nome, endereço então CPF -> nome e CPF -> endereço
+
+Leia o exemplo acima da seguinte maneira:
+
+Se com um número de CPF eu encontro o nome e o endereço de uma pessoa, então com este mesmo número eu posso encontrar apenas o nome e com este mesmo número eu posso encontrar apenas o endereço.
+
+ 
+
+Acumulação
+A -> B então AC -> B
+
+Exemplo:
+
+CPF -> endereço então CPF, idade -> endereço
+
+Leia o exemplo acima da seguinte maneira:
+
+Se com um número de CPF eu encontro o endereço de uma pessoa, então com este mesmo número mais a idade da pessoa eu posso encontrar o endereço também.
+
+ 
+
+Transitividade
+A -> B e B -> C então A -> C
+
+Exemplo:
+
+CPF -> código-cidade e código-cidade -> nome-cidade então CPF -> nome-cidade
+
+Leia o exemplo acima da seguinte maneira:
+
+Se com um número de CPF eu encontro o código da cidade de uma pessoa, e com o código da cidade eu encontro o nome da cidade, então com o número do CPF eu posso encontrar o nome da cidade.
+
+Pseudo-Transitividade
+A -> B e BC -> D então AC -> D
+
+Exemplo:
+
+CPF -> código-funcionário e código-funcionário, mês -> salário-funcionário então
+CPF, mês -> salário-funcionário
+
+Leia o exemplo acima da seguinte maneira:
+
+Se com um número de CPF eu encontro o código do funcionário, e com o código do funcionário mais um certo mês eu encontro o salário que ele recebeu naquele mês, então com o número do CPF mais um certo mês eu posso encontrar o salário que ele recebeu naquele mês.
