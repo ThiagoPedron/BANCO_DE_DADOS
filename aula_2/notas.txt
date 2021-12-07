@@ -1,0 +1,22 @@
+DADO -> 
+
+pizzas
+    - numero_item
+    - nome_pizza
+    - preco_pequena 
+    - preco_media 
+    - preco_grande
+    - lista_engredientes
+
+pedidos
+    - numero_pedido
+    - data_emissao
+    - 
+
+c
+
+funcionarios - pedido
+    - 
+
+
+
