@@ -47,3 +47,7 @@ CPF, mês -> salário-funcionário
 Leia o exemplo acima da seguinte maneira:
 
 Se com um número de CPF eu encontro o código do funcionário, e com o código do funcionário mais um certo mês eu encontro o salário que ele recebeu naquele mês, então com o número do CPF mais um certo mês eu posso encontrar o salário que ele recebeu naquele mês.
+
+
+
+DDL -> CREATE - ALTER - DROP
