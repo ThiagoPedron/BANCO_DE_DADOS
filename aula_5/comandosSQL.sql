@@ -244,10 +244,17 @@ INNER JOIN VENDEDOR ON PEDIDO.id_vendedor = VENDEDOR.id_vendedor
 WHERE PEDIDO.prazo_entrega > 15 AND VENDEDOR.salario_fixo > 1000
 ORDER BY VENDEDOR.nome_vendedor;
 
-/*33 ERRO*/
+/*33*/
 SELECT DISTINCT CLIENTE.nome_cliente
 FROM PEDIDO
 INNER JOIN CLIENTE ON PEDIDO.id_cliente = CLIENTE.id_cliente
-INNER JOIN PRODUTO ON ITEM_PEDIDO.id_produto = PRODUTO.id_produto
-WHERE CLIENTE.prazo_entrega > 15 AND CLIENTE.UF = 'RJ' AND PRODUTO.desc_produto = 'Queijo'
-ORDER BY VENDEDOR.nome_vendedor;
+FULL OUTER JOIN ITEM_PEDIDO ON PEDIDO.id_pedido = ITEM_PEDIDO.id_pedido
+WHERE prazo_entrega > 15 AND ITEM_PEDIDO.id_produto = 25 AND UF = 'RJ'
+ORDER BY CLIENTE.nome_cliente;
+
+/*34*/
+SELECT DISTINCT VENDEDOR.nome_vendedor
+FROM PEDIDO
+INNER JOIN VENDEDOR ON PEDIDO.id_vendedor = VENDEDOR.id_vendedor
+FULL OUTER JOIN ITEM_PEDIDO ON PEDIDO.id_pedido = ITEM_PEDIDO.id_pedido
+WHERE prazo_entrega > 15 AND ITEM_PEDIDO.id_produto = (SELECT id_produto FROM PRODUTO WHERE desc_produto = 'Chocolate') AND quantidade > 10
