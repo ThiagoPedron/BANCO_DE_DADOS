@@ -258,3 +258,63 @@ FROM PEDIDO
 INNER JOIN VENDEDOR ON PEDIDO.id_vendedor = VENDEDOR.id_vendedor
 FULL OUTER JOIN ITEM_PEDIDO ON PEDIDO.id_pedido = ITEM_PEDIDO.id_pedido
 WHERE prazo_entrega > 15 AND ITEM_PEDIDO.id_produto = (SELECT id_produto FROM PRODUTO WHERE desc_produto = 'Chocolate') AND quantidade > 10
+
+
+/*35*/
+
+SELECT  COUNT(DISTINCT id_cliente) FROM PEDIDO 
+WHERE id_vendedor = (SELECT  id_vendedor FROM VENDEDOR WHERE nome_vendedor ='João')
+
+/*36*/
+SELECT  CLIENTE.cidade, COUNT( DISTINCT CLIENTE.id_cliente)AS 'TOTAL'
+FROM PEDIDO
+INNER JOIN CLIENTE ON PEDIDO.id_cliente = CLIENTE.id_cliente
+FULL OUTER JOIN VENDEDOR ON PEDIDO.id_vendedor = VENDEDOR.id_vendedor
+WHERE cidade = 'Rio de Janeiro' OR cidade = 'Niteroi' AND VENDEDOR.nome_vendedor = 'João'
+GROUP BY cidade
+/*37*/
+SELECT * FROM VENDEDOR
+/*38*/
+SELECT DISTINCT desc_produto FROM PRODUTO
+INNER JOIN ITEM_PEDIDO ON PRODUTO.id_produto = ITEM_PEDIDO.id_produto
+WHERE quantidade IN(10)
+/*39*/
+SELECT nome_vendedor FROM VENDEDOR WHERE salario_fixo < (SELECT AVG(salario_fixo) FROM VENDEDOR)
+/*40*/
+SELECT *  FROM PRODUTO WHERE id_produto NOT IN(SELECT id_produto FROM ITEM_PEDIDO)
+/*41*/
+SELECT DISTINCT VENDEDOR.id_vendedor, nome_vendedor 
+FROM VENDEDOR 
+INNER JOIN PEDIDO ON PEDIDO.id_vendedor = VENDEDOR.id_vendedor 
+FULL OUTER JOIN ITEM_PEDIDO ON PEDIDO.id_pedido = ITEM_PEDIDO.id_pedido 
+FULL OUTER JOIN PRODUTO ON ITEM_PEDIDO.id_produto = PRODUTO.id_produto 
+WHERE unidade_produto = 'G'
+/*42*/
+SELECT CLIENTE.nome_cliente,COUNT(PEDIDO.id_cliente) FROM PEDIDO
+INNER JOIN CLIENTE ON PEDIDO.id_cliente = CLIENTE.id_cliente
+GROUP BY nome_cliente
+HAVING COUNT(PEDIDO.id_cliente) > 3
+
+/*43*/
+
+INSERT INTO PRODUTO(id_produto,unidade_produto,desc_produto,val_uni_produto)
+VALUES
+(108,'Kg','Parafuso', 1.25)
+
+/*44*/
+UPDATE PRODUTO
+SET val_uni_produto='1.62'
+WHERE desc_produto = 'Parafuso';
+SELECT * FROM PRODUTO WHERE desc_produto = 'Parafuso'
+/*45*/
+SELECT nome_vendedor,salario_fixo FROM VENDEDOR
+/*46*/
+UPDATE VENDEDOR
+SET salario_fixo = (salario_fixo * 1.27 + 100)
+SELECT * FROM VENDEDOR 
+/*47*/
+UPDATE PRODUTO
+SET val_uni_produto = (val_uni_produto * 1.025)
+WHERE val_uni_produto < (SELECT AVG(val_uni_produto) FROM PRODUTO) AND unidade_produto = 'Kg'
+
+SELECT * FROM PRODUTO
