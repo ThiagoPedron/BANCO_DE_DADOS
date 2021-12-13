@@ -1,0 +1,66 @@
+CREATE TABLE  CLIENTE(
+	RG integer primary key not null, 
+	nome varchar(50),
+	email varchar(50),
+	telefone varchar(11)
+);
+CREATE TABLE  PROPRIETARIO(
+	id_proprietario integer primary key not null, 
+	nome varchar(50)
+);
+CREATE TABLE  TETO_SEGURO(
+	id_teto_seguro integer primary key not null, 
+	telefone varchar(11)
+);
+CREATE TABLE  FUNCIONARIOS(
+	id_funcionario integer primary key not null, 
+	cargo varchar(50),
+	nome varchar(50),
+	telefone varchar(11)
+);
+ALTER TABLE FUNCIONARIOS
+ADD id_teto_seguro integer,
+FOREIGN KEY (id_teto_seguro) REFERENCES TETO_SEGURO;
+
+
+CREATE TABLE  IMOVEL(
+	id_imovel integer primary key not null, 
+	forma_pagamento varchar(20),
+	tipo_operacao varchar(50),
+	area  numeric(10,2),
+	id_proprietario integer,
+	FOREIGN KEY (id_proprietario) REFERENCES PROPRIETARIO
+);
+CREATE TABLE  ATENDIMENTO(
+	id_atendimento integer primary key not null, 
+	data_atendimento date,
+	hora_atendimento time,
+	id_cliente integer,
+	id_funcionario integer
+	FOREIGN KEY (id_funcionario) REFERENCES FUNCIONARIOS,
+	FOREIGN KEY (id_cliente) REFERENCES CLIENTE
+);
+CREATE TABLE  VISITA(
+	id_visita integer primary key not null, 
+	data_visita date,
+	hora_visita time,
+	id_atendimento integer,
+	id_imovel integer
+	FOREIGN KEY (id_atendimento) REFERENCES ATENDIMENTO,
+	FOREIGN KEY (id_imovel) REFERENCES IMOVEL
+);
+ALTER TABLE VISITA
+ADD id_funcionario integer,
+FOREIGN KEY (id_funcionario) REFERENCES FUNCIONARIOS;
+
+CREATE TABLE  PROPOSTA(
+	id_proposta integer primary key not null, 
+	forma_pagamento varchar(20),
+	valor  numeric(10,2),
+	id_visita integer,
+	id_funcionario integer,
+	id_cliente integer,
+	FOREIGN KEY (id_visita) REFERENCES VISITA,
+	FOREIGN KEY (id_funcionario) REFERENCES FUNCIONARIOS,
+	FOREIGN KEY (id_cliente) REFERENCES CLIENTE
+);
